@@ -11,7 +11,7 @@
     let autoplay = 1;
 
     let index_no = 0;
-    let playing_song = true;
+    let playing_song = false;
     let updateTimer;
 
     let track = document.createElement('audio');
@@ -36,15 +36,17 @@
     }
 
 ];
+
 function load_track(index_no){
-    clearinterval(timer);
+    clearInterval(timer);
     reset_slider();
+
     track.src=All_song[index_no].path;
     title.innerHTML=All_song[index_no].name;
     track_image.src=All_song[index_no].img;
     artist.innerHTML=All_song[index_no].artist;
 
-    timer= setInterval(range_slider ,1000);
+    timer= setInterval(range_slider, 1000);
     total.innerHTML=All_song.length;
     present.innerHTML=index_no + 1;
 }
@@ -68,8 +70,14 @@ function reset_slider(){
 function playsong(){
         track.play();
         playing_song=true;
-        play.innerHTML=<i class="fa fa-play"></i>
+        play.innerHTML='<i class="fa fa-pause"></i>'
     }
+    
+function pausesong(){
+    track.pause();
+    playing_song=false; 
+    play.innerHTML='<i class="fa fa-play"></i>'
+}
     function next_song(){
         if(index_no< All_song.length -1){
             index_no +=1;
@@ -83,7 +91,7 @@ function playsong(){
         }
     }
     function previous_song(){
-        if(index_no>0){
+        if(index_no >0){
             index_no -=1;
             load_track(index_no);
             playsong();
